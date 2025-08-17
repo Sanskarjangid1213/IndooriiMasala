@@ -1,5 +1,6 @@
 import React from "react";
 import { Button } from "../../components/ui/button";
+import Link from "next/link";
 
 const Navbar = () => {
   return (
@@ -26,24 +27,24 @@ const Navbar = () => {
           >
             Home
           </a>
-          <a
-            href="#products"
+          <Link
+            href="/products"
             className="text-foreground hover:text-primary transition-colors"
           >
             Products
-          </a>
-          <a
-            href="#about"
+          </Link>
+          <Link
+            href="/about"
             className="text-foreground hover:text-primary transition-colors"
           >
             About
-          </a>
-          <a
-            href="#contact"
+          </Link>
+          <Link
+            href="/contact"
             className="text-foreground hover:text-primary transition-colors"
           >
             Contact
-          </a>
+          </Link>
         </nav>
         <Button className="">Order Now</Button>
       </div>
