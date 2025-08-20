@@ -1,8 +1,14 @@
-import React from "react";
+'use client';
+import React, { useState } from "react";
 import { Button } from "../../components/ui/button";
 import Link from "next/link";
+import { SignupModal } from "./auth/SignUp";
+import { LoginModal } from "./auth/Login";
 
 const Navbar = () => {
+
+  const [showLogin, setShowLogin] = useState(false)
+  const [showSignup, setShowSignup] = useState(false)
   return (
     <header className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
@@ -46,7 +52,11 @@ const Navbar = () => {
             Contact
           </Link>
         </nav>
-        <Button className="">Order Now</Button>
+        <Button onClick={() => setShowLogin(true)} className="">Order Now</Button>
+      </div>
+      <div>
+        <LoginModal isOpen={showLogin} onClose={() => setShowLogin(false)} />
+        <SignupModal isOpen={showSignup} onClose={() => setShowSignup(false)} />
       </div>
     </header>
   );
