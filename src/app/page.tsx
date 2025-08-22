@@ -18,6 +18,9 @@ import { HeroSection } from "@/Components/hero-section";
 import { Product, ProductSlider } from "@/Components/product-slider";
 import { ProductModal } from "@/Components/Product-modal";
 
+import Footer from "@/Components/Footer";
+
+
 const products = [
   {
     id: "1",
@@ -185,8 +188,8 @@ const heroSlides = [
 export default function Home() {
   const [selectedProduct, setSelectedProduct] = useState<Product>();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  console.log(selectedProduct);
-  const handleProductClick = (product: Product) => {
+
+  const handleProductClick = (product: Product) => { 
     setSelectedProduct(product);
 
     setIsModalOpen(true);
@@ -194,7 +197,8 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background">
-      
+   
+
       {/* Hero Section */}
       <HeroSection slides={heroSlides} />
 
@@ -289,7 +293,7 @@ export default function Home() {
               <Image
                 width={500}
                 height={300}
-                src="/indian-family-namkeen.png"
+                src="/namkeen_Im_1_900x.jpg"
                 alt="Traditional Namkeen Making Process"
                 className="rounded-lg shadow-xl"
               />
@@ -441,7 +445,7 @@ export default function Home() {
               <Image
                width={500}
                 height={300}
-                src="/indian-namkeen-shop.png"
+                src="/namkeen_Im_1_900x.jpg"
                 alt="Our Store"
                 className="rounded-lg shadow-xl w-full"
               />
@@ -456,6 +460,7 @@ export default function Home() {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
       />
+           <Footer />
     </div>
   );
 }
