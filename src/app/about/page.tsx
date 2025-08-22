@@ -68,7 +68,7 @@ const page = () => {
               <Image
                 width={500}
                 height={300}
-                src="/indian-family-namkeen.png"
+                src="/namkeen_Im_1_900x.jpg"
                 alt="Traditional Namkeen Making Process"
                 className="rounded-lg shadow-xl"
               />

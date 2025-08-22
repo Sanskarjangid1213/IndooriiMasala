@@ -4,9 +4,12 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import { X } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../../components/ui/card"
-import { Label } from "@radix-ui/react-label"
+// import { Label } from "@radix-ui/react-label"
 import { Input } from "../../../components/ui/input"
 import { Button } from "../../../components/ui/button"
+import { Label } from "../../../components/ui/label"
+import { switchModal } from "@/store/slices/authModalSlice"
+import { useDispatch } from "react-redux"
 
 const signupSchema = z
   .object({
@@ -27,7 +30,7 @@ interface SignupModalProps {
   onClose: () => void
 }
 
-export function SignupModal({ isOpen, onClose }: SignupModalProps) {
+export default function Signup({ isOpen, onClose }: SignupModalProps) {
   const {
     register,
     handleSubmit,
@@ -36,7 +39,7 @@ export function SignupModal({ isOpen, onClose }: SignupModalProps) {
   } = useForm<SignupFormData>({
     resolver: zodResolver(signupSchema),
   })
-
+  const dispatch = useDispatch();
   const onSubmit = async (data: SignupFormData) => {
     try {
       // Handle signup logic here
@@ -53,7 +56,7 @@ export function SignupModal({ isOpen, onClose }: SignupModalProps) {
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
       <Card className="w-full max-w-md relative">
-        <button onClick={onClose} className="absolute right-4 top-4 text-muted-foreground hover:text-foreground">
+        <button onClick={onClose} className="absolute right-4 top-4 text-muted-foreground hover:text-foreground cursor-pointer">
           <X className="h-4 w-4" />
         </button>
 
@@ -118,7 +121,7 @@ export function SignupModal({ isOpen, onClose }: SignupModalProps) {
 
             <div className="text-center text-sm text-muted-foreground">
               Already have an account?{" "}
-              <button type="button" onClick={onClose} className="text-red-500 hover:text-red-600 font-medium">
+              <button type="button"    onClick={() => dispatch(switchModal("login"))} className="text-red-500 hover:text-red-600 font-medium cursor-pointer">
                 Sign in
               </button>
             </div>

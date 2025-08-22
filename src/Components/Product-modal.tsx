@@ -158,7 +158,7 @@ export function ProductModal({ product, isOpen, onClose }: ProductModalProps) {
             <div className="space-y-3">
               <Button className="w-full text-lg py-6 cursor-pointer">
                 <ShoppingCart className="w-5 h-5 mr-2" />
-                Add to Cart - ₹{selectedWeight === "250g" ? (product.price * 0.25).toFixed(2) : selectedWeight === "500g" ? (product.price * 0.5).toFixed(2) : product.price}
+                Add to Cart - ₹{selectedWeight === "250g" ? (product.price * 0.25*quantity).toFixed(2) : selectedWeight === "500g" ? (product.price * 0.5*quantity).toFixed(2) : product.price*quantity}
               </Button>
               <div className="flex gap-3">
                 <Button variant="outline" className="flex-1 bg-transparent">
