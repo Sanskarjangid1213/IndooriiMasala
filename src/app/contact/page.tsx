@@ -72,7 +72,7 @@ const Page = () => {
               <Image
                width={500}
                 height={300}
-                src="/indian-namkeen-shop.png"
+                src="/namkeen_Im_1_900x.jpg"
                 alt="Our Store"
                 className="rounded-lg shadow-xl w-full"
               />

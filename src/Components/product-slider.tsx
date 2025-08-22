@@ -57,7 +57,7 @@ export function ProductSlider({ products, onProductClick, autoPlay = true, slide
           <Button
             variant="outline"
             size="icon"
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-background/80 backdrop-blur-sm hover:bg-background shadow-lg"
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-background/80 backdrop-blur-sm hover:bg-background shadow-lg cursor-pointer"
             onClick={prevSlide}
             disabled={currentIndex === 0}
           >
@@ -66,7 +66,7 @@ export function ProductSlider({ products, onProductClick, autoPlay = true, slide
           <Button
             variant="outline"
             size="icon"
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-background/80 backdrop-blur-sm hover:bg-background shadow-lg"
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-background/80 backdrop-blur-sm hover:bg-background shadow-lg cursor-pointer"
             onClick={nextSlide}
             disabled={currentIndex >= products.length - slidesToShow}
           >
@@ -100,12 +100,12 @@ export function ProductSlider({ products, onProductClick, autoPlay = true, slide
                 </Badge>
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
                   <div className="flex gap-2">
-                    <Button size="sm" variant="secondary" className="bg-white/90 hover:bg-white">
+                    <Button size="sm" variant="secondary" className="bg-white/90 hover:bg-white cursor-pointer">
                       <Eye className="h-4 w-4 mr-1" />
                       View
                     </Button>
-                    <Button size="sm" className="">
-                      <ShoppingCart className="h-4 w-4 mr-1" />
+                    <Button size="sm" className="cursor-pointer">
+                      <ShoppingCart className="h-4 w-4 mr-1 " />
                       Add
                     </Button>
                   </div>
