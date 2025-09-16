@@ -10,10 +10,12 @@ import { Button } from "../../../components/ui/button"
 import { Label } from "../../../components/ui/label"
 import { switchModal } from "@/store/slices/authModalSlice"
 import { useDispatch } from "react-redux"
+import { useSignupMutation } from "@/store/services/auth"
 
 const signupSchema = z
   .object({
-    name: z.string().min(2, "Name must be at least 2 characters"),
+    firstName: z.string().min(1, "First Name must be at least 1 characters"),
+    lastName: z.string().min(2, "Last Name must be at least 1 characters"),
     email: z.string().email("Please enter a valid email address"),
     password: z.string().min(6, "Password must be at least 6 characters"),
     confirmPassword: z.string().min(6, "Please confirm your password"),
@@ -40,10 +42,18 @@ export default function Signup({ isOpen, onClose }: SignupModalProps) {
     resolver: zodResolver(signupSchema),
   })
   const dispatch = useDispatch();
+  const [signup] = useSignupMutation();
   const onSubmit = async (data: SignupFormData) => {
+    const paylod ={
+      firstName: data.firstName,
+      lastName: data.lastName,
+      email: data.email,
+      password: data.password,
+    }
     try {
       // Handle signup logic here
-      console.log("Signup attempt:", data)
+      const response = await signup(paylod).unwrap();
+      console.log("Signup attempt:", response)
       reset()
       onClose()
     } catch (error) {
@@ -68,15 +78,26 @@ export default function Signup({ isOpen, onClose }: SignupModalProps) {
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="name">Full Name</Label>
+              <Label htmlFor="name">First Name</Label>
               <Input
-                id="name"
+                id="firstName"
                 type="text"
-                placeholder="Enter your full name"
-                {...register("name")}
-                className={errors.name ? "border-red-500" : ""}
+                placeholder="Enter your first name"
+                {...register("firstName")}
+                className={errors.firstName ? "border-red-500" : ""}
               />
-              {errors.name && <p className="text-sm text-red-500">{errors.name.message}</p>}
+              {errors.firstName && <p className="text-sm text-red-500">{errors.firstName.message}</p>}
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="name">Last Name</Label>
+              <Input
+                id="lastName"
+                type="text"
+                placeholder="Enter your last name"
+                {...register("lastName")}
+                className={errors.lastName ? "border-red-500" : ""}
+              />
+              {errors.lastName && <p className="text-sm text-red-500">{errors.lastName.message}</p>}
             </div>
 
             <div className="space-y-2">

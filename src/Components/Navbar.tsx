@@ -4,6 +4,8 @@ import Link from "next/link";
 // import { useLoginMutation } from "@/store/services/auth";
 import { openModal } from "@/store/slices/authModalSlice";
 import { useDispatch } from "react-redux";
+import { ProfileDropdown } from "./ui/ProfileDropdown";
+import { User } from "lucide-react";
 
 
 const Navbar = () => {
@@ -75,7 +77,14 @@ const Navbar = () => {
           </Link>
         </nav>
         <Button className="cursor-pointer" onClick={() => dispatch(openModal("login"))}>Order Now</Button>
+        {/* drop down */}
+         <ProfileDropdown>
+          <Button variant="ghost" size="icon" className="hover:bg-red-50 hover:text-red-600">
+            <User className="h-5 w-5" />
+          </Button>
+        </ProfileDropdown>
       </div>
+
   
     </header>
   );
