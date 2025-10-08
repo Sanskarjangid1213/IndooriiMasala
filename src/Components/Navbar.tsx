@@ -1,31 +1,28 @@
 'use client';
+import allRoutes from "constanse/allRoutes";
 import { Button } from "../../components/ui/button";
 import Link from "next/link";
 // import { useLoginMutation } from "@/store/services/auth";
-import { openModal } from "@/store/slices/authModalSlice";
+// import { openModal } from "@/store/slices/authModalSlice";
 import { useDispatch } from "react-redux";
+import { ProfileDropdown } from "./ui/ProfileDropdown";
+import { User } from "lucide-react";
+import { openModal } from "store/slices/authModalSlice";
+import Cookies from "js-cookie";
+import { useEffect, useState } from "react";
+// import { RootState } from "store/store";
+
 
 
 const Navbar = () => {
-// const [login]=useLoginMutation()
+
  const dispatch = useDispatch();
+  const [token, setToken] = useState<string | null>(null);
 
-// const handellogin = async()=>{
-//   const credentials = {
-//     email: "",
-//     password: "",
-//   };
-  
-//   try{
-//     const response = await login(credentials);
-//      console.log("Login successful:", response);
-//   }
-//   catch (error) {
-//     console.error("Login failed:", error);
-//   }
-  
-
-// }
+ useEffect(() => {
+    const storedToken = Cookies.get("token");
+    setToken(storedToken || null);
+  }, []);
 
   return (
     <header className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border">
@@ -56,26 +53,44 @@ const Navbar = () => {
             Home
           </Link>
           <Link
-            href="/products"
+            href={allRoutes.products}
             className="text-foreground hover:text-primary transition-colors"
           >
             Products
           </Link>
           <Link
-            href="/about"
+            href={allRoutes.about}
             className="text-foreground hover:text-primary transition-colors"
           >
             About
           </Link>
           <Link
-            href="/contact"
+            href={allRoutes.contact}
             className="text-foreground hover:text-primary transition-colors"
           >
             Contact
           </Link>
         </nav>
+        <div  className="flex items-center space-x-4">
+
+
         <Button className="cursor-pointer" onClick={() => dispatch(openModal("login"))}>Order Now</Button>
+        {/* drop down */}
+        
+      {token && (
+        <ProfileDropdown>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="hover:bg-red-50 hover:text-red-600 cursor-pointer border-2 rounded-md focus:bg-red-50 focus:text-red-600"
+          >
+            <User className="h-5 w-5" />
+          </Button>
+        </ProfileDropdown>
+      )}
+        </div>
       </div>
+
   
     </header>
   );

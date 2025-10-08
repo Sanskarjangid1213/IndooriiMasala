@@ -44,7 +44,7 @@ export function ProductModal({ product, isOpen, onClose }: ProductModalProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto ">
         <DialogHeader>
           <DialogTitle className="sr-only">{product.name}</DialogTitle>
         </DialogHeader>
