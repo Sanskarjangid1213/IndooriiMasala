@@ -1,53 +1,56 @@
 "use client"
 
 import type React from "react"
-// import {
-//   DropdownMenu,
-//   DropdownMenuContent,
-//   DropdownMenuItem,
-//   DropdownMenuLabel,
-//   DropdownMenuSeparator,
-//   DropdownMenuTrigger,
-// } from "@/components/ui/dropdown-menu"
-// import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { User, ShoppingCart, LogOut, Settings } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../../../components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "../../../components/ui/avatar"
+import Cookies from "js-cookie";
+
+import { useGetProfileQuery } from "store/services/User"
+
 
 interface ProfileDropdownProps {
   children: React.ReactNode
 }
 
 export function ProfileDropdown({ children }: ProfileDropdownProps) {
-  const handleLogout = () => {
-    console.log("Logging out...")
+  const {data} = useGetProfileQuery();
+ const userProfile = data?.data;
+    const handleLogout = () => {
+    Cookies.remove("token");
+    localStorage.setItem("showLogoutToast", "Logged out successfully!");
+        window.location.reload()
+    // console.log("Logging out...")
   }
 
   const handleProfile = () => {
-    console.log("Opening profile...")
+    // console.log("Opening profile...")
   }
 
   const handleCart = () => {
-    console.log("Opening cart...")
+    // console.log("Opening cart...")
   }
 
   const handleSettings = () => {
-    console.log("Opening account settings...")
+    // console.log("Opening account settings...")
   }
-
+  
+    // console.log("User in ProfileDropdown:", user);
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>{children}</DropdownMenuTrigger>
       <DropdownMenuContent className="w-64" align="end" sideOffset={5}>
         <DropdownMenuLabel className="font-normal">
-          <div className="flex items-center space-x-3 p-2">
+          <div className="flex items-center space-x-3 p-2 cursor-pointer ">
             <Avatar className="h-10 w-10">
-              <AvatarImage src="/user-profile-avatar.png" alt="Profile" />
-              <AvatarFallback className="bg-red-100 text-red-600">JD</AvatarFallback>
+               <AvatarImage src={"/default-avatar.png"} alt="Profile" />
+  <AvatarFallback className="bg-red-100 text-red-600">
+    {userProfile?.firstName?.[0]}{userProfile?.lastName?.[0]}
+  </AvatarFallback>
             </Avatar>
             <div className="text-left">
-              <p className="text-sm font-semibold">John Doe</p>
-              <p className="text-xs text-muted-foreground">john.doe@example.com</p>
+              <p className="text-sm font-semibold">{userProfile?.firstName +" "+ userProfile?.lastName}</p>
+              <p className="text-xs text-muted-foreground">{userProfile?.email}</p>
             </div>
           </div>
         </DropdownMenuLabel>

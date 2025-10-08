@@ -4,13 +4,14 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import { X } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../../components/ui/card"
-// import { Label } from "@radix-ui/react-label"
 import { Input } from "../../../components/ui/input"
 import { Button } from "../../../components/ui/button"
 import { Label } from "../../../components/ui/label"
-import { switchModal } from "@/store/slices/authModalSlice"
 import { useDispatch } from "react-redux"
-import { useSignupMutation } from "@/store/services/auth"
+// import { useSignupMutation } from "@/store/services/auth"
+import { switchModal } from "store/slices/authModalSlice"
+import { useSignupMutation } from "store/services/auth"
+import { toast } from "react-toastify"
 
 const signupSchema = z
   .object({
@@ -53,7 +54,8 @@ export default function Signup({ isOpen, onClose }: SignupModalProps) {
     try {
       // Handle signup logic here
       const response = await signup(paylod).unwrap();
-      console.log("Signup attempt:", response)
+          toast.success(response.message || "Signup successful!");
+      // console.log("Signup attempt:", response)
       reset()
       onClose()
     } catch (error) {
@@ -64,7 +66,7 @@ export default function Signup({ isOpen, onClose }: SignupModalProps) {
   if (!isOpen) return null
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+    <div className="fixed inset-0  flex items-center p-4 z-50">
       <Card className="w-full max-w-md relative">
         <button onClick={onClose} className="absolute right-4 top-4 text-muted-foreground hover:text-foreground cursor-pointer">
           <X className="h-4 w-4" />

@@ -14,11 +14,11 @@ import Image from "next/image";
 import { Button } from "../../components/ui/button";
 import { Card, CardContent } from "../../components/ui/card";
 import { useState } from "react";
-import { HeroSection } from "@/Components/hero-section";
-import { Product, ProductSlider } from "@/Components/product-slider";
-import { ProductModal } from "@/Components/Product-modal";
+import { Product, ProductSlider } from "Components/product-slider";
+import { HeroSection } from "Components/hero-section";
+import { ProductModal } from "Components/Product-modal";
 
-import Footer from "@/Components/Footer";
+
 
 
 const products = [
@@ -460,7 +460,7 @@ export default function Home() {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
       />
-           <Footer />
+         
     </div>
   );
 }

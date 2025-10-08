@@ -13,9 +13,14 @@ import {
 import { Label } from "@radix-ui/react-label";
 import { Input } from "../../../components/ui/input";
 import { Button } from "../../../components/ui/button";
-import { switchModal } from "@/store/slices/authModalSlice";
+
 import { useDispatch } from "react-redux";
-import { useLoginMutation } from "@/store/services/auth";
+import { useLoginMutation } from "store/services/auth";
+import { switchModal } from "store/slices/authModalSlice";
+import Cookies from "js-cookie";
+import { setUser } from "store/slices/authSlice";
+
+// import { useLoginMutation } from "@/store/services/auth";
 
 const loginSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
@@ -41,14 +46,24 @@ export default function Login({ isOpen, onClose }: LoginModalProps) {
   const dispatch = useDispatch();
   const [login] = useLoginMutation();
   const onSubmit = async (data: LoginFormData) => {
- const paylod ={
+    const paylod = {
       email: data.email,
       password: data.password,
-    }
+    };
     try {
       const response = await login(paylod).unwrap();
-      console.log("Login attempt:", response);
+
+      if (response.data.token) {
+        Cookies.set("token", response.data.token, {
+          expires: 1,
+          secure: process.env.NODE_ENV === "production",
+          sameSite: "strict",
+        });
+      }
+      dispatch(setUser(response.data.data));
       reset();
+        localStorage.setItem("showLoginToast", response.message || "Login successful!");
+      window.location.reload();
       onClose();
     } catch (error) {
       console.error("Login error:", error);
@@ -58,7 +73,7 @@ export default function Login({ isOpen, onClose }: LoginModalProps) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+    <div className="fixed inset-0 flex items-center p-4 z-50">
       <Card className="w-full max-w-md relative">
         <button
           onClick={onClose}

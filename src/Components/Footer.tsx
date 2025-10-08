@@ -1,5 +1,7 @@
 import React from "react";
 import { Button } from "../../components/ui/button";
+import Link from "next/link";
+import allRoutes from "constanse/allRoutes";
 
 const Footer = () => {
   return (
@@ -29,36 +31,36 @@ const Footer = () => {
             <h5 className="font-semibold mb-4">Quick Links</h5>
             <ul className="space-y-2 text-background/80">
               <li>
-                <a
-                  href="#home"
+                <Link
+                  href={allRoutes.home}
                   className="hover:text-primary transition-colors"
                 >
                   Home
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#products"
+                <Link
+                  href={allRoutes.products}
                   className="hover:text-primary transition-colors"
                 >
                   Products
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#about"
+                <Link
+                  href={allRoutes.about}
                   className="hover:text-primary transition-colors"
                 >
                   About Us
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#contact"
+                <Link
+                  href={allRoutes.contact}
                   className="hover:text-primary transition-colors"
                 >
                   Contact
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

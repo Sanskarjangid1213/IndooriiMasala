@@ -1,5 +1,7 @@
 'use client'
-import { Product, ProductSlider } from '@/Components/product-slider'
+import { ProductModal } from 'Components/Product-modal';
+import { Product, ProductSlider } from 'Components/product-slider';
+// import { Product, ProductSlider } from '@/Components/product-slider'
 import React, { useState } from 'react'
 
 
@@ -136,7 +138,7 @@ const Page = () => {
 
   const [selectedProduct, setSelectedProduct] = useState<Product>();
     const [isModalOpen, setIsModalOpen] = useState(false);
-    console.log(selectedProduct);
+
     const handleProductClick = (product: Product) => {
       setSelectedProduct(product);
   
@@ -168,6 +170,11 @@ const Page = () => {
                 />
               }
             </div>
+                  <ProductModal
+                    product={selectedProduct || null}
+                    isOpen={isModalOpen}
+                    onClose={() => setIsModalOpen(false)}
+                  />
           </section>
   )
 }
